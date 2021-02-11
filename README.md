@@ -1,5 +1,4 @@
-# Transportation-Health-Tool Used to analyze a Transportation and Health Tool (THT) xlsx worksheet and visualizing
-the data.
+# Transportation-Health-Tool 
 
 Used to analyze a Transportation and Health Tool (THT) xlsx worksheet and visualizing
 the data.

@@ -1,6 +1,7 @@
-# Transportation-Health-Tool
+# Transportation-Health-Tool Used to analyze a Transportation and Health Tool (THT) xlsx worksheet and visualizing
+the data.
 
-Analyzing a Transportation and Health Tool (THT) xlsx worksheet and visualizing
+Used to analyze a Transportation and Health Tool (THT) xlsx worksheet and visualizing
 the data.
 
 This is a set of tools to help better understand sections of the metadata at:

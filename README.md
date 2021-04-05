@@ -1,7 +1,7 @@
 # Transportation-Health-Tool 
 
 Used to analyze a Transportation and Health Tool (THT) xlsx worksheet and visualize
-the data.
+the data in a dropdown Dash dashboard, using a Chloropleth Map, Scatterplot Map, and a Bubble Map.
 
 This is a set of tools to help better understand sections of the metadata at:
 
@@ -24,10 +24,11 @@ to help agencies better understand the links between transportation and health
 and to identify strategies to improve public health through transportation
 planning and policy."
 
-This project has two aspects currently: the State Data and the Metro Data.
+This project has three data aspects: State Data, Metropolitan Statistica Area Data, and Urbanized Area Data.
 
+1.) State Data
 
-1.) State Data includes:
+State Data includes:
 
 "Commute Mode Share: the percentage of workers aged 16 years and over who commute
 either
@@ -83,23 +84,13 @@ occupant, or non-occupant. Data on fatalities come from the 2012 Fatality
 Analysis Reporting System (FARS). Population data come from the 2012 American 
 Community Survey (ACS) 1-year estimates."
 
-'state_parse.py' pulls the desired information from the THT_Data_508.xlsx worksheet[0]
-(State) section, and turns it into a SQLite database. In the process, it also adds 
-in the state codes to help graph the information in 'state_graphy.py'.
-
-A copy of the final SQLite database is saved in this repository as 'state.sqlite'.
-
-In order to view and modify the database, you should install the SQLite browser
-from:
-
-http://sqlitebrowser.org/
-
-'state_graph.py' turns the SQLite database into a Pandas dataframe, and then uses
-plotly to create a chloropleth map of the data. When the script is ran, the graph
-will appear in the brower, with the states colored by vehicles driven per capita.
+'state_parse.py' retrieves and filters information from the THT_Data_508.xlsx worksheet[0]
+(State) section, and after cleaning it, writes it to a SQLite database. If not already 
+executed, the 'abbreviation.py' will insert an "Abbreviations" join table to the database
+during 'state_parse.py execution.
 
 
-2.)Metro Data:
+2.)Metropolitan Statistica Area Data
 
 For Metro Data, the information used includes:
 
@@ -130,13 +121,47 @@ Raw value data of Road Traffic Fatalities per 100,000 Residents either
 
 'metro_parse.py' pulls the desired information from the THT_Data_508.xlsx worksheet[1]
 (Metropolitan Statistica Area) section, and turns it into a SQLite database. Using the
-geopy library, it also pulls in the latitude and longitude coordinates for each metro
-area and add this information into the SQLite database, along with the xlsx worksheet
-data.
+geopy library, latitude and longitude coordinates for each metro area are also inserted
+into the SQLite database. If not already executed, the 'abbreviation.py' will insert an 
+"Abbreviations" join table to the database during 'metro_parse.py execution.
 
-A copy of the final database is saved on this repository as 'metro.sqlite'.
+3.) Urbanized Area Data
 
-'metro_graph.py' takes the information from the 'metro.sqlite' database and turns it
-into a Pandas dataframe. It then uses the Plotly graphing library to turn the dataframe
-into a scatter plot on map. Running the script will cause this graph to appear in the
-browser.
+Vehicle Miles Traveled Per Capita:
+"Vehicle miles traveled (VMT) per capita is calculated as the total annual miles of 
+vehicle travel divided by the total population in a state or in an urbanized area. Data 
+for this indicator come from the Federal Highway Administration (FHWA), 2011 Highway 
+Statistics. The reports are based on individual state reports on traffic data counts 
+collected through permanent automatic traffic recorders on public roadways. Data on VMT 
+for urbanized areas are available from the FHWA Highway Statistics Series. These data are 
+calculated as the total daily miles of vehicle travel in an urbanized area divided by the 
+total population. An urbanized area is defined as an area with 50,000 persons that at a 
+minimum encompasses the land area delineated as the urbanized area by the U.S. Census Bureau."
+
+Public Transportation Trips Per Capita:
+"This indicator measures the average number of public transportation trips that a resident 
+takes per year in a given state or urbanized area. Data for this indicator come from the 2013 
+American Public Transit Association (APTA) Public Transportation Fact Book, which uses 2011 
+data from the National Transit Database."
+
+'state_parse.py' pulls, filters, and cleans data from the THT_Data_508.xlsx worksheet[2]
+(Urbanized Area) section, and turns it into a SQLite database. Using the
+geopy library, latitude and longitude coordinates for each urbanized area are also inserted
+into the SQLite database. If not already executed, the 'abbreviation.py' will include an 
+"Abbreviations" join table to the database during 'urban_parse.py execution.
+
+A schema for the final database is saved in this repository as "THT.jpeg" and a copy of the
+SQLite database is saved as 'THT.sqlite'.
+
+In order to view and modify the database, you should install the SQLite browser
+from:
+
+http://sqlitebrowser.org/
+
+"dash_graph.py" uses Dash as a framework to create a web analytics app from the THT
+data. First it queries the "THT.sqlite" database and turns it into a Pandas dataframe.
+It then uses Plotly's Open Source Graphing Libray to create three seperate map graphs:
+State data is converted to a cholorpleth map colored by vehicles driven per capita,
+Metropolitan Statistica Area data is converted to a scatterplot map, and Urbanized Area
+data is converted to a bubble map sized by the amount of public transportation trips per
+capita.

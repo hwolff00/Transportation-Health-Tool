@@ -9,6 +9,8 @@ from dash.dependencies import Input, Output
 
 app = dash.Dash(__name__)
 
+server = app.server
+
 #-------------------------------------------------------------------------------
 #Connect to sqlite database
 conn = sqlite3.connect("THT.sqlite")

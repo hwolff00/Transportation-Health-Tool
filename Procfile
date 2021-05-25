@@ -1,1 +1,1 @@
-web: python ./dash_graph.py
+web: gunicorn app:server

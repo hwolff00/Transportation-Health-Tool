@@ -9,6 +9,8 @@ https://catalog.data.gov/dataset/transportation-and-health-tool-data
 
 A copy of the information xlsx file is also on this repository as 'THT_Data_508.xlsx'.
 
+The deployed app can be accessed at https://dash-tht.herokuapp.com/.
+
 According to the website:
 
 "The Transportation and Health Tool (THT) was developed by the U.S. Department

@@ -1,7 +1,6 @@
 # Transportation-Health-Tool 
 
-Used to analyze a Transportation and Health Tool (THT) xlsx worksheet and visualize
-the data in a dropdown Dash dashboard, using a Chloropleth Map, Scatterplot Map, and a Bubble Map.
+Used to analyze Transportation and Health Tool (THT) metadata and visualize the data in a dropdown Dash dashboard.
 
 This is a set of tools to help better understand sections of the metadata at:
 
